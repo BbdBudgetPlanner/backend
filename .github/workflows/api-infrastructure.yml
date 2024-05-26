@@ -32,15 +32,15 @@ jobs:
     
     - name: Terraform Init
       run: terraform init
-      working-directory: terraform/backendApi
+      working-directory: terraform/backend
       
     - name: Terraform Validate
       run: terraform validate
-      working-directory: terraform/backendApi
+      working-directory: terraform/backend
       
     - name: Terraform Apply
       env: 
         TF_VAR_jwt_secret: ${{ secrets.JWT_SECRET}}
         TF_VAR_ec2_public_key: ${{ secrets.EC2_PUBLIC_KEY}}
       run: terraform apply -auto-approve
-      working-directory: terraform/backendApi
+      working-directory: terraform/backend
