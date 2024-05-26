@@ -1,0 +1,56 @@
+name: Deploy New App Version (Backend)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'Backend/**' # Adjust this path as needed
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: eu-west-1
+
+      - name: Update Release with .env
+        run: |
+        working-directory: Backend
+
+      - name: Package artifact
+        run: zip -r planner.zip .
+        working-directory: Backend
+
+      - name: Upload artifact to S3
+        run: aws s3 cp planner.zip s3://${{ secrets.BUCKET_NAME }}/application-${{ github.run_id }}.zip
+        working-directory: Backend
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          role-session-name: spinterest-build-${{ github.run_id }}
+          aws-region: eu-west-1
+
+      - name: Deploy to Elastic Beanstalk
+        run: |
+          aws elasticbeanstalk create-application-version --application-name ${{ secrets.BACKEND_APP_NAME }} --version-label ${{ github.run_id }} --source-bundle S3Bucket="${{ secrets.BUCKET_NAME }}",S3Key="application-${{ github.run_id }}.zip"
+          aws elasticbeanstalk update-environment --application-name ${{ secrets.BACKEND_APP_NAME }} --environment-name ${{ secrets.BACKEND_ENV_NAME }} --version-label ${{ github.run_id }}
