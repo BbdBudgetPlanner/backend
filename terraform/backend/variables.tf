@@ -39,20 +39,6 @@ variable "vpc_private_subnets" {
 variable "ec2_public_key" {
   type        = string
   description = "The public key to use for the EC2 instance."
-  default     = "${{ secrets.PUBLIC_KEY}}"
-}
-
-variable "db_username" {
-  type        = string
-  description = "The username for the database."
-  default     = "planner"
-}
-
-variable "db_password" {
-  type        = string
-  description = "The password for the database."
-  sensitive   = true
-  default     = "${{ secrets.DB_PASSWORD }}"
 }
 
 variable "naming_prefix" {
@@ -61,16 +47,9 @@ variable "naming_prefix" {
   default     = "planback"
 }
 
-variable "connection_string" {
-  type        = string
-  description = "The connection string for the database."
-  sensitive   = true
-  default     = "postgres://username:password@hostname:3306/database"
-}
 
 variable "jwt_secret" {
   type        = string
   description = "The secret for JWT"
   sensitive   = true
-  default     = "${{ secrets.JWT_SECRET }}"
 }
