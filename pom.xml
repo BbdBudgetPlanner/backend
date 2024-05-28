@@ -13,9 +13,12 @@
     <version>1</version>
     <name>BudgetPlanner</name>
     <description>Server Application for BBD Budget Planner</description>
+
     <properties>
-        <java.version>21</java.version>
-        <mainClass>com.bbd.BudgetPlanner.ServerApplication</mainClass>
+		<java.version>21</java.version>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
+        <start-class>com.bbd.BudgetPlanner.ServerApplication</start-class>
     </properties>
 
     <dependencies>

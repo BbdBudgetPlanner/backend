@@ -1,7 +1,7 @@
 CREATE TABLE expenseitems (
-    id SERIAL PRIMARY KEY,
-    budgetid INT NOT NULL,
-    categoryid INT NOT NULL,
+    id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    budgetid INTEGER NOT NULL,
+    categoryid INTEGER NOT NULL,
     name VARCHAR(100) NOT NULL,
     price NUMERIC(10, 2) NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

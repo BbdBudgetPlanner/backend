@@ -9,24 +9,20 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "users")
-public class Users {
+@Table(name = "category")
+public class Category {
     
     @Id 
     @GeneratedValue
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "email")
-    private String email;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "createdat")
-    private String createdat;
-    
-    Users() {}
+    public Category() {}
 
-    public Users(String email, String createdat) {
-        this.email = email;
-        this.createdat = createdat;
+    public Category(String name) {
+        this.name = name;
     }
 }
