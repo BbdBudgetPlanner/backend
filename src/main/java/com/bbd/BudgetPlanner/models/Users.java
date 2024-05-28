@@ -1,25 +1,32 @@
 package com.bbd.BudgetPlanner.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.Table;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
+@Table(name = "users")
 public class Users {
+    
+    @Id 
+    @GeneratedValue
+    @Column(name = "id")
+    private Long id;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int user_id;
-    String username;
+    @Column(name = "email")
+    private String email;
 
-    public Users(String username) {
-        this.username = username;
+    @Column(name = "createdat")
+    private String createdat;
+    
+    Users() {}
+
+    public Users(String email, String createdat) {
+        this.email = email;
+        this.createdat = createdat;
     }
 }
