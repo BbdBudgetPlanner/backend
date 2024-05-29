@@ -4,7 +4,7 @@ CREATE TABLE expenseitems (
     categoryid INTEGER NOT NULL,
     name VARCHAR(100) NOT NULL,
     price NUMERIC(10, 2) NOT NULL,
-    createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    createdat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (budgetid) REFERENCES budgets(id) ON DELETE CASCADE,
     FOREIGN KEY (categoryid) REFERENCES category(id) ON DELETE CASCADE
 );

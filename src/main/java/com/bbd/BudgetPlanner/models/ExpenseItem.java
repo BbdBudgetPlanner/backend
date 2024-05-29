@@ -1,5 +1,7 @@
 package com.bbd.BudgetPlanner.models;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -36,11 +38,11 @@ public class ExpenseItem {
     private Double price; 
 
     @Column(name = "createdat")
-    private String createdat; // date and time
+    private Timestamp createdat; // date and time
 
     public ExpenseItem() {}
 
-    public ExpenseItem(String name, Double price, String createdat) {
+    public ExpenseItem(String name, Double price, Timestamp createdat) {
         this.name = name;
         this.price = price;
         this.createdat = createdat;

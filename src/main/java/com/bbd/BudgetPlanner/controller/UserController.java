@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.sql.Timestamp;
+
 @RestController
 public class UserController {
     
@@ -38,6 +40,8 @@ public class UserController {
 
     @PostMapping("/api/user")
     public ResponseEntity<?> createUser(@RequestBody Users user) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // time in local db is 2 hours behind for some reason
+        user.setCreatedat(timestamp);
         Users entity = repo.save(user);
         return ResponseEntity
             .status(HttpStatus.OK)
@@ -49,21 +53,29 @@ public class UserController {
         Optional<Users> user = repo.findById(id);
         if (user.isPresent()) {
             Users entity = user.get();
-            return ResponseEntity.status(HttpStatus.OK).body(entity);
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(entity);
         }
         String errorMessage = "User not found with id: " + id;
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createEntity("message", errorMessage));
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(createEntity("message", errorMessage));
     }
 
-    @GetMapping("/api/users/{email}")
+    @GetMapping("/api/usersemail/{email}")
     public ResponseEntity<?> getUserByEmail(@PathVariable String email) {
         Optional<Users> user = repo.findByEmail(email);
         if (user.isPresent()) {
             Users entity = user.get();
-            return ResponseEntity.status(HttpStatus.OK).body(entity);
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(entity);
         }
         String errorMessage = "User not found with email: " + email;
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createEntity("message", errorMessage));
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(createEntity("message", errorMessage));
     }
 
     public HashMap<String, String> createEntity(String x, String y) {

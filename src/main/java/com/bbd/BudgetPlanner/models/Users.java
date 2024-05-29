@@ -1,5 +1,7 @@
 package com.bbd.BudgetPlanner.models;
 
+import java.sql.Timestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,11 +24,11 @@ public class Users {
     private String email;
 
     @Column(name = "createdat")
-    private String createdat;
+    private Timestamp createdat;
     
     Users() {}
 
-    public Users(String email, String createdat) {
+    public Users(String email, Timestamp createdat) {
         this.email = email;
         this.createdat = createdat;
     }
