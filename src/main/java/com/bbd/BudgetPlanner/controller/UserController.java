@@ -1,7 +1,10 @@
 package com.bbd.BudgetPlanner.controller;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.Collections;
+import java.util.Map;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +26,11 @@ public class UserController {
         this.repo = repo;
     }
 
+    @GetMapping("/user")
+    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
+        return Collections.singletonMap("username", principal.getAttribute("username"));
+    }
+
     @PostMapping("/user")
     public ResponseEntity<?> createCategory(@RequestBody Users user) {
         Users entity = repo.save(user);
@@ -31,3 +39,5 @@ public class UserController {
             .body(entity);
     }
 }
+
+
