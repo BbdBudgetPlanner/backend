@@ -23,7 +23,7 @@ public class CategoryController {
         this.repo = repo;
     }
 
-    @GetMapping("/categories")
+    @GetMapping("/api/categories")
     public ResponseEntity<?> allCategories() {
         List<Category> categories = repo.findAll();
         return ResponseEntity
@@ -31,7 +31,7 @@ public class CategoryController {
             .body(categories);
     }
 
-    @PostMapping("/category")
+    @PostMapping("/api/category")
     public ResponseEntity<?> createCategory(@RequestBody Category category) {
         Category entity = repo.save(category);
         return ResponseEntity

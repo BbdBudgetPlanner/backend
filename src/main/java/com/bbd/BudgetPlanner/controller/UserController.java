@@ -31,7 +31,7 @@ public class UserController {
         return Collections.singletonMap("username", principal.getAttribute("username"));
     }
 
-    @PostMapping("/user")
+    @PostMapping("/api/user")
     public ResponseEntity<?> createCategory(@RequestBody Users user) {
         Users entity = repo.save(user);
         return ResponseEntity

@@ -26,7 +26,7 @@ spring:
             issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
 
 server:
-  port: 8080
+  port: 5000
 # SSL two-way TLS
 # server:
 #   ssl:
@@ -43,12 +43,3 @@ server:
 #     user:
 #       name: Admin
 #       password: admin
-
-# Country Name (2 letter code) [AU]:SA
-# State or Province Name (full name) [Some-State]:Cape Town
-# Locality Name (eg, city) []:Mowbray
-# Organization Name (eg, company) [Internet Widgits Pty Ltd]:BBD
-# Organizational Unit Name (eg, section) []:JBean
-# Common Name (e.g. server FQDN or YOUR name) []:
-# Email Address []:
-# passphrase: wandile
