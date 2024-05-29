@@ -4,6 +4,6 @@ import com.bbd.BudgetPlanner.models.*;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ExpenseItemRepository {
+public interface ExpenseItemRepository extends JpaRepository<ExpenseItem, Long> {
     
 }

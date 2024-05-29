@@ -11,19 +11,19 @@ spring:
   #       # ddl-auto: create  # Uncomment to create tables automatically
   #       # ddl-auto: validate  # Uncomment to validate schema
 
-  profiles:
-    active: default
+  #profiles:
+  #  active: default
 
-  security:
-    oauth2:
-      client:
-        registration:
-          cognito:
-            client-id: ${COGNITO_CLIENT_ID}
-            client-secret: ${COGNITO_CLIENT_SECRET}
-        provider:
-          cognito:
-            issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
+  #security:
+  #  oauth2:
+  #    client:
+  #      registration:
+  #        cognito:
+  #          client-id: ${COGNITO_CLIENT_ID}
+  #          client-secret: ${COGNITO_CLIENT_SECRET}
+  #      provider:
+  #        cognito:
+  #          issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
 
 server:
   port: 5000
