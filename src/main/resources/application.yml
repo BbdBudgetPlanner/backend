@@ -1,0 +1,54 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/budgetplanner
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+
+  #   jpa:
+  #     show-sql: true
+  #     hibernate:
+  #       # ddl-auto: create  # Uncomment to create tables automatically
+  #       # ddl-auto: validate  # Uncomment to validate schema
+
+  profiles:
+    active: default
+
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            client-id: ${COGNITO_CLIENT_ID}
+            client-secret: ${COGNITO_CLIENT_SECRET}
+        provider:
+          cognito:
+            issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
+
+server:
+  port: 8080
+# SSL two-way TLS
+# server:
+#   ssl:
+#     key-store: ../store/keystore.jks
+#     key-store-password: ${PASSWORD}
+#     key-alias: localhost
+#     key-password: ${PASSWORD}
+#     enabled: true
+#     protocol: TLS
+#     enabled-protocols: TLSv1.2
+
+# spring:
+#   security:
+#     user:
+#       name: Admin
+#       password: admin
+
+# Country Name (2 letter code) [AU]:SA
+# State or Province Name (full name) [Some-State]:Cape Town
+# Locality Name (eg, city) []:Mowbray
+# Organization Name (eg, company) [Internet Widgits Pty Ltd]:BBD
+# Organizational Unit Name (eg, section) []:JBean
+# Common Name (e.g. server FQDN or YOUR name) []:
+# Email Address []:
+# passphrase: wandile
