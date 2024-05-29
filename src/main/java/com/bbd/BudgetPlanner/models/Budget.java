@@ -13,7 +13,7 @@ import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -30,6 +30,9 @@ public class Budget {
     @JoinColumn(name = "userid") 
     private Users user; // foreign key
 
+    @Column(name = "name")
+    private String name; 
+
     @Column(name = "amount")
     private Double amount; 
 
@@ -39,10 +42,11 @@ public class Budget {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget", cascade = CascadeType.ALL)
     private List<ExpenseItem> expenseItems;
 
-    Budget() {}
+    public Budget() {}
 
-    public Budget(Double amount, Timestamp createdat) {
+    public Budget(String name, Double amount, Timestamp timestamp) {
+        this.name = name;
         this.amount = amount;
-        this.createdat = createdat;
+        this.createdat = timestamp;
     }
 }
