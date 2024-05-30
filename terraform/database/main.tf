@@ -10,7 +10,6 @@ variable "region" {
 variable "profile" {
     description = "AWS profile"
     type        = string
-    default     = "rotenda"
 }
  
   // Configure AWS provider
