@@ -1,23 +1,3 @@
-
-// Define variables for sensitive information
- 
-variable "region" {
-    description = "AWS region"
-    type        = string
-    default     = "eu-west-1"
-}
- 
-variable "profile" {
-    description = "AWS profile"
-    type        = string
-}
- 
-  // Configure AWS provider
-provider "aws" {
-    region  = var.region
-    profile = var.profile
-}
- 
   // Define VPC
 resource "aws_vpc" "mainVPC" {
     cidr_block            = "10.0.0.0/16"
