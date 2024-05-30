@@ -5,14 +5,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
-import java.sql.Date;
+
+import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
@@ -21,7 +22,7 @@ import java.util.List;
 public class Budget {
     
     @Id 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id") 
     private Long id;
     
@@ -29,19 +30,23 @@ public class Budget {
     @JoinColumn(name = "userid") 
     private Users user; // foreign key
 
+    @Column(name = "name")
+    private String name; 
+
     @Column(name = "amount")
     private Double amount; 
 
     @Column(name = "createdat")
-    private String createdat; // date and time
+    private Timestamp createdat; // date and time
     
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget", cascade = CascadeType.ALL)
     private List<ExpenseItem> expenseItems;
 
-    Budget() {}
+    public Budget() {}
 
-    public Budget(Double amount, String createdat) {
+    public Budget(String name, Double amount, Timestamp timestamp) {
+        this.name = name;
         this.amount = amount;
-        this.createdat = createdat;
+        this.createdat = timestamp;
     }
 }
