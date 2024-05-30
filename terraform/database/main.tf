@@ -141,7 +141,7 @@ resource "aws_db_instance" "db_instance" {
     multi_az                = true
     identifier              = "planner-rds-instance"
     username                = "Planner_BBD"
-    password                = "var.db_password"
+    password                = var.db_password
     instance_class          = "db.t3.micro"
     allocated_storage       = 20 // PostgreSQL requires minimum of 20 GB storage
     db_subnet_group_name    = aws_db_subnet_group.database_subnet_group.name
