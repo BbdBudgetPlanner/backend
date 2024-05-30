@@ -1,4 +1,4 @@
-name: Terraform Workflow database
+name: Terraform Workflow API
 
 on:
   push:
