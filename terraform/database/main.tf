@@ -137,7 +137,7 @@ resource "aws_security_group" "database_security_group" {
 resource "aws_db_instance" "db_instance" {
     db_name                 = "plannerdb"
     engine                  = "postgres"
-    engine_version          = "16.1"
+    engine_version          = "16.3"
     multi_az                = true
     identifier              = "planner-rds-instance"
     username                = "Planner_BBD"
