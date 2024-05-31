@@ -48,6 +48,9 @@ jobs:
           name: environment-variables
           path: .env
 
+      - name: List target directory contents
+        run: sudo ls -a ${{ github.workspace }}
+
       - name: Build with Maven
         id: build
         run: mvn -B package --file pom.xml
