@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'Backend/**' # Adjust this path as needed
   workflow_dispatch:
 
 permissions:
@@ -44,12 +42,6 @@ jobs:
           echo "COGNITO_CLIENT_SECRET:${{ secrets.COGNITO_CLIENT_SECRET }}" >> .env
           echo "COGNITO_CLIENT_NAME:${{ secrets.COGNITO_CLIENT_NAME }}" >> .env
 
-      - name: Upload .env file
-        uses: actions/upload-artifact@v3
-        with:
-          name: environment-variables
-          path: .env
-
       - name: List target directory contents
         run: sudo ls -a ${{ github.workspace }}
 
@@ -57,11 +49,20 @@ jobs:
         id: build
         run: mvn -B package --file pom.xml
 
+      - name: Create deployment package
+        run: |
+          mkdir deploy
+          cp target/BBDBudget-1.jar deploy/
+          cp .env deploy/
+          cd deploy
+          zip -r ../deployment-package.zip .
+        working-directory: ${{ github.workspace }}
+
       - name: Upload JAR
         uses: actions/upload-artifact@v3
         with:
-          name: planner-server
-          path: target/BBDBudget-1.jar
+          name: deployment-package
+          path: deployment-package.zip
 
   deploy:
     runs-on: ubuntu-latest
@@ -81,15 +82,10 @@ jobs:
           role-session-name: Github-OIDC-TERRAFORM
           audience: sts.amazonaws.com
 
-      - name: Download .env
+      - name: Download deployment package
         uses: actions/download-artifact@v3
         with:
-          name: environment-variables
-
-      - name: Download JAR
-        uses: actions/download-artifact@v3
-        with:
-          name: planner-server
+          name: deployment-package
       
       - name: List target directory contents
         run: sudo ls -a ${{ github.workspace }}
@@ -103,4 +99,4 @@ jobs:
           environment_name: planback-env 
           region: 'eu-west-1'
           version_label: v${{ github.run_number }}
-          deployment_package: ${{ github.workspace }}/BBDBudget-1.jar
+          deployment_package: ${{ github.workspace }}/deployment-package.zip
