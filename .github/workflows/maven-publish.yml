@@ -47,7 +47,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: planner-server
-          path: target/BBDBudget-1.jar
+          path: |
+            target/BBDBudget-1.jar
+            .env
 
   deploy:
     runs-on: ubuntu-latest
