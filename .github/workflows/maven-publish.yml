@@ -78,4 +78,4 @@ jobs:
           environment_name: planback-env 
           region: 'eu-west-1'
           version_label: v${{ github.run_number }}
-          deployment_package: ${{ github.workspace }}/planner-server.jar
+          deployment_package: ${{ github.workspace }}/BBDBudget-1.jar
