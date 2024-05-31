@@ -48,7 +48,7 @@ jobs:
         with:
           name: planner-server
           path: |
-            target/BBDBudget-1.jar
+            BBDBudget-1.jar
             .env
 
   deploy:
