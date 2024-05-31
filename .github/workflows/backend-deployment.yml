@@ -1,11 +1,9 @@
-name: Deploy New App Version (Backend)
+name: Deploy New App Version
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'Backend/**' # Adjust this path as needed
   workflow_dispatch:
 
 permissions:
@@ -28,15 +26,21 @@ jobs:
 
       - name: Update Release with .env
         run: |
-        working-directory: Backend
+          echo "DB_USERNAME:${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD:${{secrets.DB_PASSWORD }}" >> .env
+          echo "DB_URL:${{ secrets.DB_URL }}" >> .env
+          echo "COGNITO_CLIENT_ID:${{ secrets.COGNITO_CLIENT_ID }}" >> .env
+          echo "COGNITO_CLIENT_SECRET:${{ secrets.COGNITO_CLIENT_SECRET }}" >> .env
+          echo "COGNITO_CLIENT_NAME:${{ secrets.COGNITO_CLIENT_NAME }}" >> .env
+        #working-directory: Backend
 
       - name: Package artifact
         run: zip -r planner.zip .
-        working-directory: Backend
+        #working-directory: Backend
 
       - name: Upload artifact to S3
         run: aws s3 cp planner.zip s3://${{ secrets.BUCKET_NAME }}/application-${{ github.run_id }}.zip
-        working-directory: Backend
+        #working-directory: Backend
 
   deploy:
     runs-on: ubuntu-latest
@@ -47,7 +51,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v3
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
-          role-session-name: spinterest-build-${{ github.run_id }}
+          role-session-name: planner-build-${{ github.run_id }}
           aws-region: eu-west-1
 
       - name: Deploy to Elastic Beanstalk
