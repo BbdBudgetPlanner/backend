@@ -122,11 +122,11 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
+        <!--dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
-        </dependency>
+        </dependency-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -161,7 +161,7 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.2.0</version>
@@ -176,7 +176,7 @@
                         </resource>
                     </resources>
                 </configuration>
-            </plugin>
+            </plugin-->
         </plugins>
     </build>
 </project>
