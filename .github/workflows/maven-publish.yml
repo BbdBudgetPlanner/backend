@@ -33,11 +33,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Update Release with .env
+      - name: Create .env file
         run: |
           echo "DB_USER_LOCAL:${{ secrets.DB_USERNAME }}" >> .env
           echo "DB_PASSWORD_LOCAL:${{secrets.DB_PASSWORD }}" >> .env
           echo "DB_PORT_LOCAL:${{ secrets.DB_URL }}" >> .env
+
+      - name: Upload .env file
+        uses: actions/upload-artifact@v3
+        with:
+          name: environment-variables
+          path: .env
 
       - name: Build with Maven
         id: build
@@ -47,9 +53,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: planner-server
-          path: |
-            BBDBudget-1.jar
-            .env
+          path: target/BBDBudget-1.jar
 
   deploy:
     runs-on: ubuntu-latest
