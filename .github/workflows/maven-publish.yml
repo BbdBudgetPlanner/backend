@@ -73,6 +73,11 @@ jobs:
           role-session-name: Github-OIDC-TERRAFORM
           audience: sts.amazonaws.com
 
+      - name: Download .env
+        uses: actions/download-artifact@v3
+        with:
+          name: environment-variables
+
       - name: Download JAR
         uses: actions/download-artifact@v3
         with:
