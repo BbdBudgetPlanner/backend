@@ -79,7 +79,7 @@ jobs:
           name: planner-server
       
       - name: List target directory contents
-        run: sudo ls ${{ github.workspace }}
+        run: sudo ls -a ${{ github.workspace }}
 
       - name: Deploy Server to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
