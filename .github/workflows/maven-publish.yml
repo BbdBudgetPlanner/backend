@@ -44,6 +44,9 @@ jobs:
 
     needs: build
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v3
         id: creds
@@ -51,9 +54,8 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: eu-west-1
           output-credentials: true
-
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+          role-session-name: Github-OIDC-TERRAFORM
+          audience: sts.amazonaws.com
 
       - name: Download JAR
         uses: actions/download-artifact@v3
