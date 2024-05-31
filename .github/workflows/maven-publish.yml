@@ -41,6 +41,7 @@ jobs:
           echo "COGNITO_CLIENT_ID:${{ secrets.COGNITO_CLIENT_ID }}" >> .env
           echo "COGNITO_CLIENT_SECRET:${{ secrets.COGNITO_CLIENT_SECRET }}" >> .env
           echo "COGNITO_CLIENT_NAME:${{ secrets.COGNITO_CLIENT_NAME }}" >> .env
+        working-directory: src/main/resources/
 
       - name: List target directory contents
         run: sudo ls -a ${{ github.workspace }}
