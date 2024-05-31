@@ -35,9 +35,9 @@ jobs:
 
       - name: Update Release with .env
         run: |
-          echo "DB_USER_LOCAL: ${{ secrets.DB_USERNAME }}" >> .env
-          echo "DB_PASSWORD_LOCAL: ${{secrets.DB_PASSWORD }}" >> .env
-          echo "DB_PORT_LOCAL: ${{ secrets.DB_URL }}" >> .env
+          echo "DB_USER_LOCAL:${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD_LOCAL:${{secrets.DB_PASSWORD }}" >> .env
+          echo "DB_PORT_LOCAL:${{ secrets.DB_URL }}" >> .env
 
       - name: Build with Maven
         id: build
