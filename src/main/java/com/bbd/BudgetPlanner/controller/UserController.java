@@ -5,9 +5,6 @@ import java.util.Optional;
 
 import java.util.Collections;
 import java.util.Map;
-//
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.sql.Timestamp;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 public class UserController {
@@ -31,15 +29,6 @@ public class UserController {
 
     public UserController(UserRepository repo) {
         this.repo = repo;
-    }
-
-    @GetMapping("/user")
-    public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-        System.out.println("===========================");
-        System.out.println(principal.toString());
-        System.out.println(principal.getName());
-        System.out.println("===========================");
-        return Collections.singletonMap("username", principal.getAttribute("username"));
     }
 
     @PostMapping("/api/user")

@@ -2,6 +2,8 @@ package com.bbd.BudgetPlanner;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+
 import io.github.cdimascio.dotenv.Dotenv;
 //import org.springframework.boot.autoconfigure.domain.EntityScan;
 //import org.springframework.context.annotation.ComponentScan;
@@ -9,6 +11,7 @@ import io.github.cdimascio.dotenv.Dotenv;
 //@EntityScan({ "com.bbd.BudgetPlanner" })
 //@ComponentScan({ "com.bbd.BudgetPlanner" })
 @SpringBootApplication
+@EnableMethodSecurity
 public class ServerApplication {
 
   public static void main(String[] args) {

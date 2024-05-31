@@ -16,34 +16,21 @@ spring:
 
   security:
     oauth2:
-      client:
-        registration:
-          cognito:
-            client-id: ${COGNITO_CLIENT_ID}
-            client-secret: ${COGNITO_CLIENT_SECRET}
-            scope: openid
-            client-name: ${COGNITO_CLIENT_NAME}
-        provider:
-          cognito:
-            issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
-
       resourceserver:
         jwt:
-          issuer-uri: https://cognito-idp.eu-central-1.amazonaws.com/eu-west-1_5HwcQZ7mF
+          issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
 
+# SSL two-way TLS
 server:
   port: 5000
-# SSL two-way TLS
-# server:
-#   ssl:
-#     key-store: ../store/keystore.jks
-#     key-store-password: ${PASSWORD}
-#     key-alias: localhost
-#     key-password: ${PASSWORD}
-#     enabled: true
-#     protocol: TLS
-#     enabled-protocols: TLSv1.2
-
+  #ssl:
+  #  key-store: ../store/keystore.jks
+  #  key-store-password: ${PASSWORD}
+  #  key-alias: localhost
+  #  key-password: ${PASSWORD}
+  #  enabled: true
+  #  protocol: TLS
+  #  enabled-protocols: TLSv1.2
 # spring:
 #   security:
 #     user:
