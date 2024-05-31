@@ -19,9 +19,9 @@ public class ServerApplication {
     System.setProperty("DB_URL", dotenv.get("DB_URL"));
     System.setProperty("DB_USERNAME", dotenv.get("DB_USERNAME"));
     System.setProperty("DB_PASSWORD", dotenv.get("DB_PASSWORD"));
-    System.setProperty("COGNITO_CLIENT_ID", dotenv.get("COGNITO_CLIENT_ID"));
-    System.setProperty("COGNITO_CLIENT_SECRET", dotenv.get("COGNITO_CLIENT_SECRET"));
-    System.setProperty("COGNITO_CLIENT_NAME", dotenv.get("COGNITO_CLIENT_NAME"));
+    //System.setProperty("COGNITO_CLIENT_ID", dotenv.get("COGNITO_CLIENT_ID"));
+    //System.setProperty("COGNITO_CLIENT_SECRET", dotenv.get("COGNITO_CLIENT_SECRET"));
+    //System.setProperty("COGNITO_CLIENT_NAME", dotenv.get("COGNITO_CLIENT_NAME"));
     SpringApplication.run(ServerApplication.class, args);
   }
 }
