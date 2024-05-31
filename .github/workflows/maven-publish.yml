@@ -44,6 +44,14 @@ jobs:
 
     needs: build
     steps:
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v3
+        id: creds
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: eu-west-1
+          output-credentials: true
+
       - name: Checkout Repository
         uses: actions/checkout@v3
 
@@ -58,8 +66,8 @@ jobs:
       - name: Deploy Server to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key: ${{ steps.creds.outputs.aws-access-key-id }}
+          aws_secret_key: ${{ steps.creds.outputs.aws-secret-access-key }}
           application_name: planback-app
           environment_name: planback-env 
           region: 'eu-west-1'
