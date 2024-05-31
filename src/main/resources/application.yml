@@ -14,16 +14,22 @@ spring:
   #profiles:
   #  active: default
 
-  #security:
-  #  oauth2:
-  #    client:
-  #      registration:
-  #        cognito:
-  #          client-id: ${COGNITO_CLIENT_ID}
-  #          client-secret: ${COGNITO_CLIENT_SECRET}
-  #      provider:
-  #        cognito:
-  #          issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
+  security:
+    oauth2:
+      client:
+        registration:
+          cognito:
+            client-id: ${COGNITO_CLIENT_ID}
+            client-secret: ${COGNITO_CLIENT_SECRET}
+            scope: openid
+            client-name: ${COGNITO_CLIENT_NAME}
+        provider:
+          cognito:
+            issuer-uri: https://cognito-idp.eu-west-1.amazonaws.com/eu-west-1_5HwcQZ7mF
+
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.eu-central-1.amazonaws.com/eu-west-1_5HwcQZ7mF
 
 server:
   port: 5000

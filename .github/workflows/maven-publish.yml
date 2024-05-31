@@ -35,9 +35,12 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "DB_USER_LOCAL:${{ secrets.DB_USERNAME }}" >> .env
-          echo "DB_PASSWORD_LOCAL:${{secrets.DB_PASSWORD }}" >> .env
-          echo "DB_PORT_LOCAL:${{ secrets.DB_URL }}" >> .env
+          echo "DB_USERNAME:${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD:${{secrets.DB_PASSWORD }}" >> .env
+          echo "DB_URL:${{ secrets.DB_URL }}" >> .env
+          echo "COGNITO_CLIENT_ID:${{ secrets.COGNITO_CLIENT_ID }}" >> .env
+          echo "COGNITO_CLIENT_SECRET:${{ secrets.COGNITO_CLIENT_SECRET }}" >> .env
+          echo "COGNITO_CLIENT_NAME:${{ secrets.COGNITO_CLIENT_NAME }}" >> .env
 
       - name: Upload .env file
         uses: actions/upload-artifact@v3
