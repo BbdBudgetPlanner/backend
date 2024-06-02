@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,6 +57,28 @@ public class ExpenseItemController {
         }
         String errorMessage = "Budget id or category id is invalid";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(createEntity("message", errorMessage));
+    }
+
+    @DeleteMapping("/api/deleteitem")
+    ResponseEntity<?> deleteItem( @RequestParam Long id ) {
+        Optional<ExpenseItem> ex = exRepo.findById(id);
+        if (ex.isPresent()) {
+            ex.ifPresent(
+                (e) -> {
+                    e.setBudget(null);
+                    e.setCategory(null);
+                    e.setCreatedat(null);
+                }
+            );
+            exRepo.deleteById(id);
+            if (exRepo.existsById(id)) {
+                String errorMessage = "Expense item exists but cannot be deleted";
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(createEntity("message", errorMessage));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(createEntity("message", "Expense item deleted"));
+        }
+        String errorMessage = "Expense item of id "+id+" does not exist";
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createEntity("message", errorMessage));
     }
 
     public HashMap<String, String> createEntity(String x, String y) {

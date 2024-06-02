@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +32,14 @@ public class BudgetController {
     @GetMapping("/")
 	public String index() {
 		return "Greetings from Spring Boot!";
+	}
+
+    @GetMapping("/api/usersbudget/{id}")
+	ResponseEntity<?> getAllUsersBudgets(@PathVariable Users user) {
+		List<Budget> b = budgetRepo.findByUser(user);
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(b);
 	}
 
 	@GetMapping("/api/usersbudget/{id}")
