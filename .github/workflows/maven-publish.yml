@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build:
-    name: killerbeans-server
+    name: server
     runs-on: ubuntu-latest
 
     steps:
