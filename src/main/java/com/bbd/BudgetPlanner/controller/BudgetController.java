@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+
+import javax.swing.text.html.Option;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,12 +37,19 @@ public class BudgetController {
 		return "Greetings from Spring Boot!";
 	}
 
-    @GetMapping("/api/usersbudget/{id}")
-	ResponseEntity<?> getAllUsersBudgets(@PathVariable Users user) {
-		List<Budget> b = budgetRepo.findByUser(user);
+    @GetMapping("/api/usersbudgets/{userid}")
+	ResponseEntity<?> getAllUsersBudgets(@PathVariable Long userid) {
+        Optional<Users> u = userRepo.findById(userid);
+        if (u.isPresent()) {
+            List<Budget> b = budgetRepo.findByUser(u.get());
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(b);
+        }
+		String errorMessage = "User not found with id: " + userid;
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND)
-            .body(b);
+            .body(createEntity("message", errorMessage));
 	}
 
 	@GetMapping("/api/usersbudget/{id}")

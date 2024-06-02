@@ -38,9 +38,6 @@ public class Budget {
 
     @Column(name = "createdat")
     private Timestamp createdat; // date and time
-    
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "budget", cascade = CascadeType.ALL)
-    private List<ExpenseItem> expenseItems;
 
     public Budget() {}
 
