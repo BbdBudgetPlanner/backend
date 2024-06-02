@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -37,9 +38,9 @@ public class ExpenseItemController {
 
     @PostMapping("/api/expenseitem")
     ResponseEntity<?> createExpenseItem( @RequestParam Long budgetid,
-                                    @RequestParam Long categoryid,
-                                    @RequestParam String name,
-									@RequestParam Double price ) {
+                                        @RequestParam Long categoryid,
+                                        @RequestParam String name,
+                                        @RequestParam Double price ) {
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // time in local db is 2 hours behind for some reason
 		ExpenseItem ex = new ExpenseItem(name, price, timestamp);
@@ -56,7 +57,26 @@ public class ExpenseItemController {
 				.body(item);
         }
         String errorMessage = "Budget id or category id is invalid";
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(createEntity("message", errorMessage));
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(createEntity("message", errorMessage));
+    }
+
+    @GetMapping("/api/getitems")
+    ResponseEntity<?> getExpenseItems( @RequestParam Long budgetid ) {
+        //Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // time in local db is 2 hours behind for some reason
+		Optional<Budget> budget = budgetRepo.findById(budgetid);
+
+        if (budget.isPresent()) {
+            List<ExpenseItem> ex = exRepo.findByBudget(budget.get());
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(ex);
+        }
+        String errorMessage = "Budget id is invalid";
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(createEntity("message", errorMessage));
     }
 
     @DeleteMapping("/api/deleteitem")
@@ -73,12 +93,18 @@ public class ExpenseItemController {
             exRepo.deleteById(id);
             if (exRepo.existsById(id)) {
                 String errorMessage = "Expense item exists but cannot be deleted";
-                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(createEntity("message", errorMessage));
+                return ResponseEntity
+                    .status(HttpStatus.NOT_ACCEPTABLE)
+                    .body(createEntity("message", errorMessage));
             }
-            return ResponseEntity.status(HttpStatus.OK).body(createEntity("message", "Expense item deleted"));
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(createEntity("message", "Expense item deleted"));
         }
         String errorMessage = "Expense item of id "+id+" does not exist";
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(createEntity("message", errorMessage));
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .body(createEntity("message", errorMessage));
     }
 
     public HashMap<String, String> createEntity(String x, String y) {
