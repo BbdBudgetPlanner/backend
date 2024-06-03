@@ -11,7 +11,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,30 +25,39 @@ import java.util.List;
 @Data
 @Table(name = "budgets")
 public class Budget {
-    
-    @Id 
+
+    @Getter
+    @Setter
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") 
+    @Column(name = "id")
     private Long id;
-    
-    @OneToOne(cascade = CascadeType.ALL) // cascade all will save the data from the customer object in the Customer table in db
-    @JoinColumn(name = "userid") 
+
+    @OneToOne(cascade = CascadeType.ALL) // cascade all will save the data from the customer object in the Customer
+                                         // table in db
+
+    @JoinColumn(name = "userid")
     private Users user; // foreign key
 
+    @Size(max = 100, message = "Budget name must be less than or equal to 100 characters")
     @Column(name = "name")
-    private String name; 
+    private String name;
 
+    @Min(value = 0, message = "Amount must be greater than or equal to 0")
+    @Max(value = 99999999, message = "Amount must be less than or equal to 99999999")
     @Column(name = "amount")
-    private Double amount; 
+    private Double amount;
 
     @Column(name = "createdat")
-    private Timestamp createdat; // date and time
+    private Timestamp createdat;
 
-    public Budget() {}
+    public Budget() {
+    }
 
-    public Budget(String name, Double amount, Timestamp timestamp) {
+    public Budget(String name, Double amount) {
         this.name = name;
         this.amount = amount;
-        this.createdat = timestamp;
+        this.createdat = new Timestamp(System.currentTimeMillis());
+
     }
 }

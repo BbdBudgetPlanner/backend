@@ -14,11 +14,11 @@ import com.bbd.BudgetPlanner.models.Category;
 import com.bbd.BudgetPlanner.repository.CategoryRepository;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import jakarta.validation.Valid;
 
 @RestController
 public class CategoryController {
-    
+
     private final CategoryRepository repo;
 
     public CategoryController(CategoryRepository repo) {
@@ -29,8 +29,8 @@ public class CategoryController {
     public ResponseEntity<?> allCategories() {
         List<Category> categories = repo.findAll();
         return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(categories);
+                .status(HttpStatus.OK)
+                .body(categories);
     }
 
     @GetMapping("/api/category/{id}")
@@ -39,27 +39,22 @@ public class CategoryController {
         if (c.isPresent()) {
             Category cat = c.get();
             return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(cat);
+                    .status(HttpStatus.OK)
+                    .body(cat);
         }
         String errorMessage = "Category not found with id: " + id;
         return ResponseEntity
-            .status(HttpStatus.NOT_FOUND)
-            .body(createEntity("message", errorMessage));
+                .status(HttpStatus.NOT_FOUND)
+                .body(createEntity("message", errorMessage));
     }
 
     @PostMapping("/api/category")
-    public ResponseEntity<?> createCategory(@RequestBody Category category) {
-        if (category.getName().length()<=100) {
-            Category entity = repo.save(category);
-            return ResponseEntity
+    public ResponseEntity<?> createCategory(
+            @Valid @RequestBody Category category) {
+        Category entity = repo.save(category);
+        return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(entity);
-        }
-        String errorMessage = "Number of category name characters have been exceeded";
-        return ResponseEntity
-            .status(HttpStatus.BAD_REQUEST)
-            .body(createEntity("message", errorMessage));
     }
 
     public HashMap<String, String> createEntity(String x, String y) {
