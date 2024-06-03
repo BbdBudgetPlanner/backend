@@ -50,10 +50,16 @@ public class CategoryController {
 
     @PostMapping("/api/category")
     public ResponseEntity<?> createCategory(@RequestBody Category category) {
-        Category entity = repo.save(category);
+        if (category.getName().length()<=100) {
+            Category entity = repo.save(category);
+            return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(entity);
+        }
+        String errorMessage = "Number of category name characters have been exceeded";
         return ResponseEntity
-            .status(HttpStatus.OK)
-            .body(entity);
+            .status(HttpStatus.BAD_REQUEST)
+            .body(createEntity("message", errorMessage));
     }
 
     public HashMap<String, String> createEntity(String x, String y) {

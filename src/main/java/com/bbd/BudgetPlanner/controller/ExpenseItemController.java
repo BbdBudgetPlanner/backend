@@ -42,21 +42,27 @@ public class ExpenseItemController {
                                         @RequestParam String name,
                                         @RequestParam Double price ) {
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // time in local db is 2 hours behind for some reason
-		ExpenseItem ex = new ExpenseItem(name, price, timestamp);
+        if (name.length()<=100) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // time in local db is 2 hours behind for some reason
+            ExpenseItem ex = new ExpenseItem(name, price, timestamp);
 
-        Optional<Budget> b = budgetRepo.findById(budgetid);
-        Optional<Category> c = categoryRepo.findById(categoryid);
+            Optional<Budget> b = budgetRepo.findById(budgetid);
+            Optional<Category> c = categoryRepo.findById(categoryid);
 
-        if (c.isPresent() && b.isPresent()) {
-			ex.setBudget(b.get());
-            ex.setCategory(c.get());
-			ExpenseItem item = exRepo.save(ex);
+            if (c.isPresent() && b.isPresent()) {
+                ex.setBudget(b.get());
+                ex.setCategory(c.get());
+                ExpenseItem item = exRepo.save(ex);
+                return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(item);
+            }
+            String errorMessage = "Budget id or category id is invalid";
             return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(item);
+                .status(HttpStatus.BAD_REQUEST)
+                .body(createEntity("message", errorMessage));
         }
-        String errorMessage = "Budget id or category id is invalid";
+        String errorMessage = "Number of expense item name characters have been exceeded";
         return ResponseEntity
             .status(HttpStatus.BAD_REQUEST)
             .body(createEntity("message", errorMessage));

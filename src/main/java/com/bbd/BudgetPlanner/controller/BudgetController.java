@@ -86,21 +86,27 @@ public class BudgetController {
     ResponseEntity<?> createBudget( @RequestParam Long userid,
                                     @RequestParam String name,
 									@RequestParam Double amount ) {
+        
+        if (name.length()<=100) {
+            Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // time in local db is 2 hours behind for some reason
+            Budget budget = new Budget(name, amount, timestamp);
 
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis()); // time in local db is 2 hours behind for some reason
-		Budget budget = new Budget(name, amount, timestamp);
+            Optional<Users> user = userRepo.findById(userid);
 
-        Optional<Users> user = userRepo.findById(userid);
-
-        if (user.isPresent()) {
-			budget.setUser(user.get());
-			Budget b = budgetRepo.save(budget);
-            return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(b);
+            if (user.isPresent()) {
+                budget.setUser(user.get());
+                Budget b = budgetRepo.save(budget);
+                return ResponseEntity
+                    .status(HttpStatus.OK)
+                    .body(b);
+            }
+            String errorMessage = "User id is invalid: " + userid;
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(createEntity("message", errorMessage));
         }
-        String errorMessage = "User id is invalid: " + userid;
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(createEntity("message", errorMessage));
+        String errorMessage = "Number of budget name characters have been exceeded";
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST)
+            .body(createEntity("message", errorMessage));
     }
 
 	public HashMap<String, String> createEntity(String x, String y) {

@@ -4,7 +4,6 @@ import com.bbd.BudgetPlanner.models.*;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 
-
 @Repository
 public interface ExpenseItemRepository extends JpaRepository<ExpenseItem, Long> {
     List<ExpenseItem> findByBudget(Budget budget);
