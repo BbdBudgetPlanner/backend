@@ -31,8 +31,8 @@ public class Users {
     Users() {
     }
 
-    public Users(String email, Timestamp createdat) {
+    public Users(String email) {
         this.email = email;
-        this.createdat = createdat;
+        this.createdat = new Timestamp(System.currentTimeMillis());
     }
 }

@@ -144,11 +144,11 @@ public class ExpenseItemController {
                         .body(createEntity("message", errorMessage));
             }
             ex.ifPresent(
-                    (e) -> {
-                        e.setBudget(null);
-                        e.setCategory(null);
-                        e.setCreatedat(null);
-                    });
+                (e) -> {
+                e.setBudget(null);
+                e.setCategory(null);
+                e.setCreatedat(null);
+                });
             exRepo.deleteById(id);
             if (exRepo.existsById(id)) {
                 String errorMessage = "Expense item exists but cannot be deleted";
