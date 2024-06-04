@@ -37,8 +37,7 @@ public class ExpenseItem {
     @JoinColumn(name = "budgetid")
     private Budget budget; // foreign key
 
-    @ManyToOne(cascade = CascadeType.ALL) // cascade all will save the data from the customer object in the Customer
-                                          // table in db
+    @ManyToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name = "categoryid")
     private Category category; // foreign key
 

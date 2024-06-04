@@ -33,9 +33,7 @@ public class Budget {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne(cascade = CascadeType.ALL) // cascade all will save the data from the customer object in the Customer
-                                         // table in db
-
+    @OneToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name = "userid")
     private Users user; // foreign key
 

@@ -22,7 +22,7 @@ public class Users {
     private Long id;
 
     @NotBlank(message = "Email is mandatory")
-    @Column(name = "email")
+    @Column(name = "email") 
     private String email;
 
     @Column(name = "createdat")
