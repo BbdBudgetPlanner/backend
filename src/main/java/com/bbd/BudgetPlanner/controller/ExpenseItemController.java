@@ -56,7 +56,6 @@ public class ExpenseItemController {
 
         Optional<Budget> b = budgetRepo.findById(expenseItemRequest.getBudgetId());
         Optional<Category> c = categoryRepo.findById(expenseItemRequest.getCategoryId());
-        ExpenseItem ex = new ExpenseItem();
         if (c.isPresent() && b.isPresent()) {
 
             if (!b.get().getUser().equals(u.get())) {
@@ -66,11 +65,9 @@ public class ExpenseItemController {
                         .status(HttpStatus.FORBIDDEN)
                         .body(createEntity("message", errorMessage));
             }
-
+            ExpenseItem ex = new ExpenseItem(expenseItemRequest.getName(), expenseItemRequest.getPrice());
             ex.setBudget(b.get());
             ex.setCategory(c.get());
-            ex.setName(expenseItemRequest.getName());
-            ex.setPrice(expenseItemRequest.getPrice());
             ExpenseItem item = exRepo.save(ex);
 
             return ResponseEntity
