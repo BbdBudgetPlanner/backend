@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
+//import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -36,6 +37,7 @@ public class UserController {
         this.repo = repo;
     }
 
+    //@CrossOrigin(origins = "http://bbdplanner.s3-website-eu-west-1.amazonaws.com")
     @PostMapping("/api/user")
     public ResponseEntity<?> createUser() {
 
