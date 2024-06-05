@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.bbd.BudgetPlanner.models.*;
 import com.bbd.BudgetPlanner.repository.*;
@@ -37,11 +38,7 @@ public class BudgetController {
         this.userRepo = userRepo;
     }
 
-    @GetMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
-    }
-
+    @CrossOrigin(origins = "http://bbdplanner.s3-website-eu-west-1.amazonaws.com")
     @GetMapping("/api/usersbudgets")
     ResponseEntity<?> getAllUsersBudgets() {
 
@@ -62,6 +59,7 @@ public class BudgetController {
                 .body(createEntity("message", errorMessage));
     }
 
+    @CrossOrigin(origins = "http://bbdplanner.s3-website-eu-west-1.amazonaws.com")
     @GetMapping("/api/usersbudget/{id}")
     ResponseEntity<?> getBudget(@PathVariable Long id) {
 
@@ -93,6 +91,7 @@ public class BudgetController {
                 .body(createEntity("message", errorMessage));
     }
 
+    @CrossOrigin(origins = "http://bbdplanner.s3-website-eu-west-1.amazonaws.com")
     @GetMapping("/api/budgetbyname/{name}")
     public ResponseEntity<?> getBudgetByName(@PathVariable String name) {
 
@@ -125,6 +124,7 @@ public class BudgetController {
                 .body(createEntity("message", errorMessage));
     }
 
+    @CrossOrigin(origins = "http://bbdplanner.s3-website-eu-west-1.amazonaws.com")
     @PostMapping("/api/budget")
     ResponseEntity<?> createBudget(
             @Valid @RequestBody Budget budgetRequest) {
