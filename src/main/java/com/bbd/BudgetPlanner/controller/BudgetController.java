@@ -126,8 +126,7 @@ public class BudgetController {
 
     //@CrossOrigin(origins = "http://bbdplanner.s3-website-eu-west-1.amazonaws.com")
     @PostMapping("/api/budget")
-    ResponseEntity<?> createBudget(
-            @Valid @RequestBody Budget budgetRequest) {
+    ResponseEntity<?> createBudget(@Valid @RequestBody Budget budgetRequest) {
         {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             Jwt jwt = (Jwt) authentication.getPrincipal();

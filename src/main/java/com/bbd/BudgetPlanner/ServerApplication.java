@@ -33,7 +33,10 @@ public class ServerApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://bbdplanner.s3-website-eu-west-1.amazonaws.com").allowedHeaders("*");
+				registry.addMapping("/**")
+        .allowedOrigins("http://bbdplanner.s3-website-eu-west-1.amazonaws.com")
+        .allowedHeaders("*")
+        .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
 			}
 		};
 	}
