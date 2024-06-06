@@ -3,7 +3,7 @@ name: Terraform Workflow API
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'terraform/backend/**' # Adjust this path as needed
   workflow_dispatch:

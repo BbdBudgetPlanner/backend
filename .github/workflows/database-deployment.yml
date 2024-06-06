@@ -3,7 +3,7 @@ name: Terraform Workflow database
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'terraform/database/**' # Adjust this path as needed
   workflow_dispatch:

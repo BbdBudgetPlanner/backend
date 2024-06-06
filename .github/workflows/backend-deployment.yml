@@ -3,7 +3,7 @@ name: Deploy New App Version (Backend)
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - 'Backend/**' # Adjust this path as needed
   workflow_dispatch:
