@@ -26,7 +26,7 @@ public class ServerApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-        .allowedOrigins("https://dfn01vp2479p8.cloudfront.net")
+        .allowedOrigins("http://planback.eu-west-1.elasticbeanstalk.com")
         .allowedHeaders("Content-Type", "Authorization")
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
 			}
