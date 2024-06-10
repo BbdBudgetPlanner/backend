@@ -26,7 +26,7 @@ public class ServerApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-        .allowedOrigins("https://bbdplanner.s3-website-eu-west-1.amazonaws.com")
+        .allowedOrigins("https://dfn01vp2479p8.cloudfront.net")
         .allowedHeaders("Content-Type", "Authorization")
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
 			}
