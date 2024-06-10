@@ -1,12 +1,19 @@
 package com.bbd.BudgetPlanner;
 
+import java.io.IOException;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import io.github.cdimascio.dotenv.Dotenv;
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @SpringBootApplication
 @EnableMethodSecurity
@@ -27,7 +34,8 @@ public class ServerApplication {
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
         .allowedOrigins("https://dfn01vp2479p8.cloudfront.net")
-        .allowedHeaders("Content-Type", "Authorization")
+        .allowedHeaders("*")
+        .allowCredentials(true)
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
 			}
 		};
