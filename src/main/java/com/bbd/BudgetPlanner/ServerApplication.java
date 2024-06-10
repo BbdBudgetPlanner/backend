@@ -42,24 +42,24 @@ public class ServerApplication {
 		};
 	}
 
-  @Bean
-  public Filter corsFilter() {
-    return new OncePerRequestFilter() {
-      @Override
-      protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-              throws ServletException, IOException {
-        response.setHeader("Access-Control-Allow-Origin", "https://dfn01vp2479p8.cloudfront.net");
-        response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-        response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
-            response.setStatus(HttpServletResponse.SC_OK);
-        } 
-        else {
-          filterChain.doFilter(request, response);
-        }
-      }
-    };
-  }
+  //@Bean
+  //public Filter corsFilter() {
+  //  return new OncePerRequestFilter() {
+  //    @Override
+  //    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+  //            throws ServletException, IOException {
+  //      response.setHeader("Access-Control-Allow-Origin", "https://dfn01vp2479p8.cloudfront.net");
+  //      response.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  //      response.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me");
+  //      response.setHeader("Access-Control-Allow-Credentials", "true");
+  //      
+  //      if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+  //          response.setStatus(HttpServletResponse.SC_OK);
+  //      } 
+  //      else {
+  //        filterChain.doFilter(request, response);
+  //      }
+  //    }
+  //  };
+  //}
 }
