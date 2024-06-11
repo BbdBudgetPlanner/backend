@@ -120,7 +120,7 @@ public class ExpenseItemController {
         }
         String errorMessage = "Budget id is invalid";
         return ResponseEntity
-                .status(HttpStatus.BAD_REQUEST)
+                .status(HttpStatus.NOT_FOUND)
                 .body(createEntity("message", errorMessage));
     }
 
