@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,15 +71,15 @@ public class ExpenseItemController {
             ExpenseItem item = exRepo.save(ex);
 
             return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(item);
+                .status(HttpStatus.OK)
+                .body(item);
         }
 
         if (!b.isPresent()) {
             String errorMessage = "Budget not found with ID: " + expenseItemRequest.getBudgetId();
             return ResponseEntity
-                    .status(HttpStatus.BAD_REQUEST)
-                    .body(createEntity("message", errorMessage));
+                .status(HttpStatus.BAD_REQUEST)
+                .body(createEntity("message", errorMessage));
         }
 
         if (!c.isPresent()) {
@@ -95,38 +94,39 @@ public class ExpenseItemController {
                 .body(expenseItemRequest);
     }
 
-    @GetMapping("/api/getitems/{id}")
-    ResponseEntity<?> getExpenseItems(@RequestParam Long id) {
+    @GetMapping("/api/getitems")
+    ResponseEntity<?> getExpenseItems(@RequestParam Long budgetid) {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Jwt jwt = (Jwt) authentication.getPrincipal();
         String email = jwt.getClaimAsString("username");
         Optional<Users> u = userRepo.findByEmail(email);
 
-        Optional<Budget> budget = budgetRepo.findById(id);
+        Optional<Budget> budget = budgetRepo.findById(budgetid);
 
         if (budget.isPresent()) {
             if (!budget.get().getUser().equals(u.get())) {
                 String errorMessage = "Budget with name: " + budget.get().getName()
                         + " does not belong to the authenticated user";
                 return ResponseEntity
-                        .status(HttpStatus.FORBIDDEN)
-                        .body(createEntity("message", errorMessage));
+                    .status(HttpStatus.FORBIDDEN)
+                    .body(createEntity("message", errorMessage));
             }
 
             List<ExpenseItem> ex = exRepo.findByBudget(budget.get());
             return ResponseEntity
-                    .status(HttpStatus.OK)
-                    .body(ex);
+                .status(HttpStatus.OK)
+                .body(ex);
         }
+
         String errorMessage = "Budget id is invalid";
         return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(createEntity("message", errorMessage));
     }
 
-    @DeleteMapping("/api/deleteitem/{id}")
-    ResponseEntity<?> deleteItem(@PathVariable Long id) {
+    @DeleteMapping("/api/deleteitem")
+    ResponseEntity<?> deleteItem(@RequestParam Long id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Jwt jwt = (Jwt) authentication.getPrincipal();
         String email = jwt.getClaimAsString("username");
